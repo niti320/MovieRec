@@ -28,14 +28,25 @@ st.header("Select your favorite movie 🐼!")
 
 selectvalue = st.selectbox("", MovieL)
 
+# def recommend(movie):
+#     index = movies[movies['title'] == movie].index[0]
+#     distance = sorted(list(enumerate(simi[index])), reverse=True, key=lambda vector: vector[1])
+#     recommend_movie = []
+#     recommend_poster = []
+#     for i in distance[1:6]:  
+#         recommend_movie.append(movies.iloc[i[0]].title)
+#         recommend_poster.append(fetch_poster(movies.iloc[i[0]].title))
+#     return recommend_movie, recommend_poster
+
 def recommend(movie):
-    index = movies[movies['title'] == movie].index[0]
-    distance = sorted(list(enumerate(simi[index])), reverse=True, key=lambda vector: vector[1])
-    recommend_movie = []
-    recommend_poster = []
-    for i in distance[1:6]:  
+    index=movies[movies['title']==movie].index[0]
+    distance = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda vector:vector[1])
+    recommend_movie=[]
+    recommend_poster=[]
+    for i in distance[1:6]:
+        movies_id=movies.iloc[i[0]].id
         recommend_movie.append(movies.iloc[i[0]].title)
-        recommend_poster.append(fetch_poster(movies.iloc[i[0]].title))
+        recommend_poster.append(fetch_poster(movies_id))
     return recommend_movie, recommend_poster
 
 if st.button("Show Recommendations"):
