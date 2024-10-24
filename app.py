@@ -1,6 +1,3 @@
-import streamlit as st
-import pickle
-import requests
 
 # def fetch_poster(movie_title):
 #     url = f"https://www.omdbapi.com/?t={movie_title}&apikey=b5b4bd76"
@@ -10,15 +7,18 @@ import requests
 #         return data['Poster']
 #     else:
 #         return "Poster not found"
-def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=c7ec19ffdd3279641fb606d19ceb9bb1&language=en-US".format(movie_id)
+import streamlit as st
+import pickle
+import requests
+
+def fetch_poster(movie_title):
+    url = f"https://www.omdbapi.com/?t={movie_title}&apikey=b5b4bd76"
     try:
         data = requests.get(url)
         data.raise_for_status()  # Raises an HTTPError for bad responses
-        poster_path = data.json().get('poster_path')
+        poster_path = data.json().get('Poster')
         if poster_path:
-            full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
-            return full_path
+            return poster_path
         else:
             return "https://via.placeholder.com/500x750?text=No+Image"
     except Exception as e:
